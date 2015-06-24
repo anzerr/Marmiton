@@ -14,7 +14,7 @@ namespace Jinx\Entity {
 			$a = (new Model\Users())->select()->where('id = :id', array('id' => 10));
 			var_dump($a->run());
 			var_dump($a->toString());
-			//echo file_get_contents($this->baseDir . '/public/index.html');
+			//echo file_get_contents($this->baseDir . '/public/home.html');
 		}
 	}
 }
