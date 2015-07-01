@@ -1,141 +1,59 @@
-isset = function(a) { return (typeof(a) !== 'undefined' && a !== null); }
-
 var Jinx;
 (function(base) {
-    "use strict";
+	requirejs([ // add libs here
+		'/public/lib/jquery-2.1.4.js',
+		'/public/lib/socket.js',
+		'/public/lib/bootstrap.js', // not style this is this app bootstrap
+		'/public/lib/angular/angular.js',
+	], function(util) {
+		base.Bootstrap('Marmiton', { // angular modules here
+			ngRoute: '/public/lib/angular/angular-route.js',
+			ngCookies: '/public/lib/angular/angular-cookies.js',
+			ngAnimate: '/public/lib/angular/angular-animate.js',
+		}, function(app) {
 
-    var partials = '/public/app/partials/';
-
-    base.controller = angular.module('appControllers', [
-        'ngCookies',
-    ]);
-
-    base.app = angular.module('LiteAdmin',[
-        'ngRoute',
-        'ngCookies',
-        'appControllers'
-    ]);
-
-    base.app.config(['$routeProvider', function($routeProvider) {
-        $routeProvider.
-            when('/home', {
-                templateUrl: partials + 'home.html',
-                controller: 'HomeCtrl'
-            }).
-            when('/recettes', {
-                templateUrl: partials + 'recettes.html',
-                controller: 'HomeCtrl'
-            }).
-            when('/contribute', {
-                templateUrl: partials + 'contribute.html',
-                controller: 'HomeCtrl'
-            }).
-            when('/contact', {
-                templateUrl: partials + 'contact.html',
-                controller: 'HomeCtrl'
-            }).
-            otherwise({
-                redirectTo: '/home'
-            });
-    }]);
-
-
-    // FUNC
-    base._connection = {
-        s: {
-            host: 'localhost',
-            user: 'root',
-            password: '',
-            port: '',
-        },
-        error: [],
-        init: false,
-        tested: false,
-        Init: function($cookies, $http) {
-            if (this.init) {
-                return (true);
-            }
-            var self = this;
-            try {
-                self.s = JSON.parse($cookies.sqlConfig);
-            } catch (e) {
-                $cookies.sqlConfig = JSON.stringify(self.s);
-            }
-            this.init = true;
-            this.Test($http);
-        },
-        Save: function($cookies, $http) {
-            $cookies.sqlConfig = JSON.stringify(this.s);
-            this.Test($http);
-        },
-        Test: function($http) {
-            var self = this;
-            self.tested = false;
-            base.query($http, 'SHOW DATABASES;').success(function(res) {
-                self.error = res.error;
-                self.tested = true;
-            });
-        },
-        Get: function() {
-            if (!this.init) {
-                return ({});
-            }
-            return ({
-                sql: 'mysql:host=' + this.s.host + ((this.s.port != '') ? ';port=' + this.s.port : ''),
-                user: this.s.user,
-                pwd: this.s.password,
-            });
-        }
-    }
-
-    base._query = {
-        _database:'',
-        _pos: 0,
-        set:function(a) {
-            this._database = a;
-        },
-        list:[],
-        add:function(a, b) {
-            if (!isset(this.list[this.list.length - 1]) || this.list[this.list.length - 1].q != a) {
-                this.list.push({q:a, d:(isset(b)) ? b : ''});
-                this._pos = this.list.length;
-            }
-
-            console.log(this.list);
-            return (a);
-        },
-        qGet: function(a) {
-            this._pos = Math.min(Math.max(this._pos + a, 0), this.list.length - 1);
-            return (this.list[this._pos]);
-        }
-    }
-
-    base.escapeRegExp = function(str) {
-        return (str+'').replace(/[\0\x08\x09\x1a\n\r"'\\\%]/g, function (char) {
-            switch (char) {
-                case "\0":
-                    return "\\0";
-                case "\x08":
-                    return "\\b";
-                case "\x09":
-                    return "\\t";
-                case "\x1a":
-                    return "\\z";
-                case "\n":
-                    return "\\n";
-                case "\r":
-                    return "\\r";
-                case "\"":
-                case "'":
-                case "\\":
-                case "%":
-                    return "\\"+char;
-            }
-        });
-    }
-
-    base.query = function($http, q, d) {
-        return ($http({method: 'post', url: '/', data: {c: 'database', a: 'query', p: {connect: base._connection.Get(), query: q, database: (isset(d)) ? d : ''}}}));
-    }
-
+			app.Load([ // add all the files needs to load
+				'/public/content/js/bootstrap.min.js', // loaded here because it needs jquery
+				'/public/app/controller/home.js',
+				'/public/app/directive/dropzone.js',
+				'/public/app/directive/menu.js',
+			], function() {				
+				// route config 
+				app.Config(['$routeProvider', function($routeProvider) {
+					console.log('route');
+					$routeProvider.
+					when('/home', {
+						templateUrl: '/public/app/partials/home.html',
+						controller: 'HomeCtrl'
+					}).
+					when('/show', {
+						template: '<div>show</div>',
+						controller: 'ShowCtrl'
+					}).
+					otherwise({
+						redirectTo: '/home'
+					});
+				}]).run(['$cookies', '$rootScope', '$location', '$timeout', function($cookies, $rootScope, $location, $timeout) {
+					$rootScope.$on('$routeChangeStart', function(event, next, current) { // stuff on every route change
+						// stuff
+					});
+					$rootScope.$on('$routeChangeSuccess', function(event, next, current) {
+						$timeout(function() {
+							if ($location.$$url != '/home') {
+								$('.jinxFaidIn').css({'opacity': 1});
+							}
+							base.collapsMenu.show();
+						}, 250);
+					});
+					app.Storage($cookies, $rootScope); // load the base $storage object and $data (perm, temp)
+				}]);
+			});// bootstrap project happends after this call back
+			
+							
+			document.addEventListener('jinxLoaded', function (e) {
+				console.log('done');
+				$('.loadingBlock').css({'pointer-events': 'none', 'opacity': 0});
+			}, false);
+		});
+	});
 })(Jinx || (Jinx = {}));

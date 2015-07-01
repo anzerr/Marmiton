@@ -23,11 +23,14 @@ namespace Jinx\Entity {
 		
 		private function initController($name) {
 			try {
-				$str = 'Jinx\\Controller\\' . $name; 
-				return (new $str($this->baseDir));
+				$str = 'Jinx\\Controller\\' . ucfirst(strtolower($name)); 
+				if (class_exists($str)) {
+					return (new $str($this->baseDir));
+				}
 			} catch (Exception $e) {
-				return (null);
+				// log the error
 			}
+			return (null);
 		}
 		
 		public function __construct($dir) {
@@ -59,9 +62,9 @@ namespace Jinx\Entity {
 		
 		public function run() {
 			if (($json = json_decode(file_get_contents('php://input'), true)) === null) {
-				$json = array('c' => 'database', 'a' => 'index');
+				$json = array('c' => 'home', 'a' => 'index');
 			}
-			$cont = $this->initController((isset($json['c'])) ? $json['c'] : 'database');
+			$cont = $this->initController((isset($json['c'])) ? $json['c'] : 'home');
 			if ($cont !== null) {
 				$action = (isset($json['a']) && is_callable(array($cont, $json['a']))) ? $json['a'] : 'index';
 				$cont->$action((isset($json['p'])) ? $json['p'] : null);
