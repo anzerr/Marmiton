@@ -17,15 +17,18 @@ namespace Jinx\Controller {
 		
 		public function update($param) {
 			$a = (new Model\Ingredient())->update()->value($param['value'])->where('id = :id', array('id' => $param['id']));
+			var_dump($a);
 			echo json_encode($a->run());
 		}
 		
 		public function create($param) {
-			$a = (new Model\Ingredient())->insert();
-			foreach ($param['value'] as $key => $value) {
-				$a->value($value);
+			if (isset($param['value'])) {
+				$a = (new Model\Ingredient())->insert();
+				$a->value($param['value']);
+				echo json_encode($a->run());
+			} else {
+				echo json_encode(array('error' => 'did not find value.'));
 			}
-			echo json_encode($a->run());
 		}
 	}
 }

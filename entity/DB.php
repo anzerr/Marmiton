@@ -73,8 +73,10 @@ namespace Jinx\Entity {
 			$ncol = '';
 			if ($col != null) {
 				if ($this->_type == 'insert') {
+					$count = 0;
 					foreach ($col as $key => $value) {
-						$ncol .= (($key != 0) ? ', ' : '') . (($value == null) ? 'NULL' : '"' . $this->secure($value) . '"');
+						$ncol .= (($count != 0) ? ', ' : '') . (($value == null) ? 'NULL' : '"' . $this->secure($value) . '"');
+						$count += 1;
 					}
 					$ncol = ' (' . trim($ncol) . ')';
 				}
@@ -82,7 +84,7 @@ namespace Jinx\Entity {
 					$count = 0;
 					foreach ($col as $key => $value) {
 						if ($value != null) {
-							$name = ((isset(self::$_coln[$key])) ? self::$_coln[$key] : '' ) . ' = ';
+							$name = ((isset(self::$_coln[$key])) ? self::$_coln[$key] : $key ) . ' = ';
 							$ncol .= (($count != 0) ? ', ' : '') . $name . (($value == 'NULL') ? 'NULL' : '"' . $this->secure($value) . '"');
 							$count += 1;
 						}
@@ -90,7 +92,7 @@ namespace Jinx\Entity {
 					$ncol = ' ' . trim($ncol);
 				}
 			}
-			$this->_query .= ($this->_type == 'insert')? (($this->_value == 0) ? 'VALUES' : ',') : '' . $ncol;
+			$this->_query .= (($this->_type == 'insert')? (($this->_value == 0) ? 'VALUES' : ',') : '') . $ncol;
 			$this->_value += 1;
 			return ($this);
 		}
