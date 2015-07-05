@@ -116,7 +116,7 @@ var Jinx;
 		Storage: function($cookie, $rootScope) {
 			console.log($cookie);
 			base.$data = { 
-				user: {},
+				ingredient: null,
 				app: {loaded: false},
 			};
 			base.$storage = new stored($cookie, $rootScope);

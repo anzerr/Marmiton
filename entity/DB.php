@@ -69,14 +69,19 @@ namespace Jinx\Entity {
 			return ($this);
 		}
 		
-		public function value($col = null) {
+		public function value($col = null, $_struct) {
 			$ncol = '';
 			if ($col != null) {
 				if ($this->_type == 'insert') {
 					$count = 0;
-					foreach ($col as $key => $value) {
-						$ncol .= (($count != 0) ? ', ' : '') . (($value == null) ? 'NULL' : '"' . $this->secure($value) . '"');
-						$count += 1;
+					foreach ($_struct['column'] as $kin => $vin) {
+						foreach ($col as $key => $value) {
+							if ($key === $kin) {
+								$ncol .= (($count != 0) ? ', ' : '') . (($value == null) ? 'NULL' : '"' . $this->secure($value) . '"');
+								$count += 1;
+								break;
+							}
+						}
 					}
 					$ncol = ' (' . trim($ncol) . ')';
 				}

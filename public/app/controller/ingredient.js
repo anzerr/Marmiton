@@ -2,13 +2,11 @@ Jinx.$add(function() {
 	"use strict";
 
 	return (function(app) {
-		app.Controller('HomeCtrl', ['$scope', '$timeout', '$http', function($scope, $timeout, $http) {
+		app.Controller('IngredientCtrl', ['$scope', '$timeout', '$http', function($scope, $timeout, $http) {
 			$scope.home = {
 				_insert: {
 					id: null,
-					enable: true,
 				},
-				_head: ['id', 'name', 'instruction', 'description', 'enable'],
 				_edit: [],
 				_wait: false,
 				result: [],
@@ -17,12 +15,12 @@ Jinx.$add(function() {
 					self._wait = true;
 					$http({
 						method: 'post', url: '/', data: {
-							c: 'recipe', 
+							c: 'ingredient', 
 							a: 'get', 
 							p: {}
 						}
 					}).success(function(data, status, headers, config) {
-						self.result = data;
+						Jinx.$data.ingredient = (self.result = data);
 						self._wait = false;
 					}).error(function(data, status, headers, config) {
 						console.log(data);
@@ -33,7 +31,7 @@ Jinx.$add(function() {
 					self._wait = true;
 					$http({
 						method: 'post', url: '/', data: {
-							c: 'recipe', 
+							c: 'ingredient', 
 							a: 'create', 
 							p: {'value': v}
 						}
@@ -85,7 +83,7 @@ Jinx.$add(function() {
 					self._wait = true;
 					$http({
 						method: 'post', url: '/', data: {
-							c: 'recipe', 
+							c: 'ingredient', 
 							a: 'delete', 
 							p: {'id': self.result[id].id}
 						}

@@ -7,6 +7,9 @@ namespace Jinx\Controller {
 	Class Recipe extends Entity\BaseController {
 		public function get($param) {
 			$a = (new Model\Recipe())->select();
+			if (isset($param['id'])) {
+				$a->where('id = :id', array('id' => $param['id']));
+			}
 			/*
 				need to join with the other stuff
 			*/
@@ -24,10 +27,7 @@ namespace Jinx\Controller {
 		}
 		
 		public function create($param) {
-			$a = (new Model\Recipe())->insert();
-			foreach ($param['value'] as $key => $value) {
-				$a->value($value);
-			}
+			$a = (new Model\Recipe())->insert()->value($param['value']);
 			/*
 				need a real create for all the child tables
 			*/

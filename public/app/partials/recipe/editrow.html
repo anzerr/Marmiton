@@ -1,0 +1,98 @@
+<div class="jinxFaidIn">
+	<div class="animate-show jinxTop" style="width:100%;">
+		<div id="Dragdown" class="transitionAllB col-md-12" style="margin-top:-10%;opacity:0;">
+			<div class="col-md-12" style="margin-bottom:20px;">
+				<a href="/#/recipe/" class="btn btn-xs btn-primary" role="button"><i class="fa fa-arrow-left"></i></a>
+			</div>
+			
+			<div class="panel panel-default">
+				<div ng-click="home.Get()" class="panel-heading">Recipe<i style="margin-left:10px;" class="{{(home._wait)? 'loading' : '' }} fa fa-refresh"></i></div>
+				
+				<div class="col-md-12 table-responsive" style="float: none;">
+					<table class="table table-condensed">
+						<tr>
+							<td>Name:</td>
+							<td><input style="width:100%;" type="text" ng-model="home.result[0].name"></td>
+						</tr>
+						<tr>
+							<td>Instruction:</td>
+							<td><textarea style="width:100%;" class="jinxTextarea" ng-model="home.result[0].instruction"></textarea></td>
+						</tr>
+						<tr>
+							<td>Description:</td>
+							<td><textarea style="width:100%;" class="jinxTextarea" ng-model="home.result[0].description"></textarea></td>
+						</tr>
+					</table>
+					<div class="text-right" style="margin-bottom:10px;">
+						<button class="btn btn-success" type="submit" ng-click="home.Save(home.result[0])">Save</button>
+					</div>
+				</div>
+			</div>
+			
+			<div class="panel panel-default">
+				<div ng-click="home.ingredient.Get()" class="panel-heading">Ingredient<i style="margin-left:10px;" class="{{(home._wait)? 'loading' : '' }} fa fa-refresh"></i></div>
+				
+				<div class="col-md-12 table-responsive" style="float: none;">
+					<table class="table table-condensed">
+						<tr>
+							<td>Ingredient:</td>
+							<td>
+								<select style="width:100%;" ng-model="home.ingredient._insert.name" ng-options="item.id as item.name for item in home.ingredient._all"></select>
+							</td>
+						</tr>
+						<tr>
+							<td>Amount:</td><td><input style="width:100%;" type="text" ng-model="home.ingredient._insert.amount"></td>
+						</tr>
+					</table>
+					<div class="text-right" style="margin-bottom:10px;">
+						<button class="btn btn-success" type="submit" ng-click="home.ingredient.Add(home.ingredient._insert)">Save</button>
+					</div>
+				</div>
+				
+				<div class="col-md-12 table-responsive" style="float: none;">
+					<table class="table table-condensed">
+						<tr>
+							<th class="transitionAll text-left" ng-repeat="(ki, vi) in home.ingredient._head track by $index">{{vi}}</th>
+							<th>Action</th>
+						</tr>
+						<tr ng-repeat="(kx, vx) in home.ingredient.result track by $index" ng-if="home.ingredient.result[kx] !== null" style="min-height:37px;">
+							<td class="transitionAll text-left" ng-repeat="(ki, vi) in home.ingredient._head track by $index">
+								<span ng-hide="(home.ingredient._edit[kx] && vi !== 'id')">{{home.ingredient.result[kx][vi]}}</span>
+								<input ng-show="(home.ingredient._edit[kx] && vi !== 'id' && vi !== 'ingredient')" type="text" ng-model="home.ingredient.result[kx][vi]" required style="min-width:64px;">
+								<div ng-show="(home.ingredient._edit[kx] && vi === 'ingredient')">
+									<select style="width:100%;" ng-model="home.ingredient.result[kx].ingredientId" ng-options="item.id as item.name for item in home.ingredient._all"></select>
+								</div>
+							</td>
+							<td class="text-right">
+								<button class="btn btn-xs btn-success transitionAll" type="submit" ng-click="home.ingredient.Edit(kx)">
+									<i class="fa fa-{{(!home.ingredient._edit[kx])? 'pencil' : 'floppy-o'}}"></i>
+								</button>
+								<button class="btn btn-xs btn-danger transitionAll" type="submit" ng-click="home.ingredient.Remove(kx)">
+									<i class="fa fa-times"></i>
+								</button>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			
+			<div class="panel panel-default">
+				<div ng-click="home.comment.Get()" class="panel-heading">Comments<i style="margin-left:10px;" class="{{(home._wait)? 'loading' : '' }} fa fa-refresh"></i></div>
+				
+				<div class="col-md-12" style="float: none;">
+					<div ng-repeat="(key, value) in home.comment.result track by $index" ng-if="home.comment.result[key] !== null" style="min-height:37px;margin-bottom:10px;">
+						<div style="color:gray">{{value.email}} - {{value.date}}</div>
+						<div style="margin-left:10px;">
+							<p>{{value.comment}}</p>
+							<div class="text-right">
+								<button class="btn btn-xs btn-danger transitionAll" type="submit" ng-click="home.comment.Remove(key)">
+									<i class="fa fa-times"></i>
+								</button>
+							</div>
+						</div>
+					</tr>
+				</div>
+			</div>
+		</div>
+	</div>
+<div>

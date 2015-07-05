@@ -152,7 +152,7 @@ span, td, tr, td {
 	overflow: hidden;
 	resize: none;
 	display: block;
-	padding: 6px 12px;
+	/*padding: 6px 12px;*/
 	font-size: 14px;
 	line-height: 1.42857143;
 	color: #555;

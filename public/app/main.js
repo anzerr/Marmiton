@@ -15,6 +15,9 @@ var Jinx;
 			app.Load([ // add all the files needs to load
 				'/public/content/js/bootstrap.min.js', // loaded here because it needs jquery
 				'/public/app/controller/home.js',
+				'/public/app/controller/recipe.js',
+				'/public/app/controller/ingredient.js',
+				
 				'/public/app/directive/dropzone.js',
 				'/public/app/directive/menu.js',
 			], function() {				
@@ -26,9 +29,25 @@ var Jinx;
 						templateUrl: '/public/app/partials/home.html',
 						controller: 'HomeCtrl'
 					}).
-					when('/show', {
-						template: '<div>show</div>',
-						controller: 'ShowCtrl'
+					when('/recipe/', {
+						templateUrl: '/public/app/partials/recipe/home.html',
+						controller: 'RecipeCtrl'
+					}).
+					when('/recipe/edit', {
+						templateUrl: '/public/app/partials/recipe/edit.html',
+						controller: 'RecipeCtrl'
+					}).
+					when('/recipe/edit/:id', {
+						templateUrl: '/public/app/partials/recipe/editrow.html',
+						controller: 'RecipeCtrl'
+					}).
+					when('/recipe/view/:id', {
+						templateUrl: '/public/app/partials/recipe/view.html',
+						controller: 'RecipeCtrl'
+					}).
+					when('/ingredient/', {
+						templateUrl: '/public/app/partials/ingredient.html',
+						controller: 'IngredientCtrl'
 					}).
 					otherwise({
 						redirectTo: '/home'

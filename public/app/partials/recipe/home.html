@@ -1,0 +1,29 @@
+<div class="jinxFaidIn">
+	<div class="animate-show jinxTop" style="width:100%;">
+		<div id="Dragdown" class="transitionAllB col-md-12" style="margin-top:-10%;opacity:0;">
+			<div class="col-md-12" style="margin-bottom:20px;">
+				<a href="/#/recipe/edit" class="btn btn-xs btn-primary" role="button"><i class="fa fa-pencil"></i></a>
+			</div>
+			
+			<div class="panel panel-default" style="overflow:hidden;">
+				<div style="margin:10px;">
+					<input style="width:100%;" type="text" ng-model="home._search" ng-change="home.Search()" placeholder="Search">
+				</div>
+				
+				<div class="thumbnail transitionAllB" ng-repeat="(key, value) in home.result track by $index" style="width:150px;display:inline-block;margin:10px;position:relative;
+					margin-left:{{(home._hide[key]) ? -160 : 10}}px;
+					z-index:{{(home._hide[key]) ? 1 : 99}};
+				">
+					<div class="caption">
+						<h3>{{value.name}}</h3>
+						<p>{{value.description}}</p>
+						<p class="text-right">
+							<a href="/#/recipe/edit/{{value.id}}" class="btn btn-xs btn-success" role="button">Edit</a>
+							<a href="/#/recipe/view/{{value.id}}" class="btn btn-xs btn-primary" role="button">View</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<div>

@@ -8,6 +8,7 @@ namespace Jinx\Model {
 			'column' => array(
 				'id' => 'int(11) NOT NULL AUTO_INCREMENT',
 				'ingredientId' => 'int NOT NULL',
+				'amount' => 'varchar(100) NOT NULL',
 				'recipeId' => 'int NOT NULL',
 			),
 			'detail' => array(
@@ -31,6 +32,10 @@ namespace Jinx\Model {
 
 		public function insert($extra = null, $_not = null) {
 			return (parent::insert(self::$_struct, $extra));
+		}
+		
+		public function value($col = null, $_not = null) {
+			return (parent::value($col, self::$_struct));
 		}
 	}
 }

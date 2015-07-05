@@ -1,0 +1,47 @@
+<div class="jinxFaidIn">
+	<div class="animate-show jinxTop" style="width:100%;">
+		<div id="Dragdown" class="transitionAllB col-md-12" style="margin-top:-10%;opacity:0;">
+			
+			<div class="panel panel-default">
+					<div ng-click="home.Get()" class="panel-heading">Ingredient<i style="margin-left:10px;" class="{{(home._wait)? 'loading' : '' }} fa fa-refresh"></i></div>
+					
+					<div class="col-md-12 table-responsive" style="float: none;">
+						<table class="table table-condensed">
+							<tr>
+								<td>Name:</td>
+								<td><input type="text" ng-model="home._insert.name"></td>
+							</tr>
+						</table>
+						<div class="text-right" style="margin-bottom:10px;">
+							<button class="btn btn-success" type="submit" ng-click="home.Add(home._insert)">Add</button>
+						</div>
+					</div>
+					
+					<div class="col-md-12 table-responsive" style="float: none;">
+						<table class="table table-condensed">
+							<tr>
+								<th>Id</th>
+								<th>Name</th>
+								<th>Action</th>
+							</tr>
+							<tr ng-repeat="(kx, vx) in home.result track by $index" ng-if="home.result[kx] !== null" style="min-height:37px;">
+								<td class="transitionAll text-left" ng-repeat="(ki, vi) in home.result[kx] track by $index">
+									<span ng-hide="(home._edit[kx] && ki !== 'id')">{{home.result[kx][ki]}}</span>
+									<input ng-show="(home._edit[kx] && ki !== 'id')" type="text" ng-model="home.result[kx][ki]" required style="min-width:64px;">
+								</td>
+								<td class="text-right">
+									<button class="btn btn-xs btn-success transitionAll" type="submit" ng-click="home.Edit(kx)">
+										<i class="fa fa-{{(!home._edit[kx])? 'pencil' : 'floppy-o'}}"></i>
+									</button>
+									<button class="btn btn-xs btn-danger transitionAll" type="submit" ng-click="home.Remove(kx)">
+										<i class="fa fa-times"></i>
+									</button>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<div>

@@ -30,5 +30,9 @@ namespace Jinx\Model {
 		public function insert($extra = null, $_not = null) {
 			return (parent::insert(self::$_struct, $extra));
 		}
+		
+		public function value($col = null, $_not = null) {
+			return (parent::value($col, self::$_struct));
+		}
 	}
 }
