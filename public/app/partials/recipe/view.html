@@ -5,53 +5,55 @@
 				<a href="/#/recipe/" class="btn btn-xs btn-primary" role="button"><i class="fa fa-arrow-left"></i></a>
 			</div>
 			
-			<div class="panel panel-default">
-				<div class="col-md-12" ng-repeat="(key, value) in home.result track by $index">
-					<div class="col-md-12">
-						<h2>{{value.name}}</h2>
-						<div class="col-md-12" style="margin-left:10px;">
-							<h4>Description:</h4>
-							<p style="margin-left:10px;">{{value.description}}</p>
-							<h4>Instruction:</h4>
-							<p style="margin-left:10px;">{{value.instruction}}</p>
-							
-							
-							<div style="width:70%;overflow:hidden;">
-								<div class="table-responsive" style="float:none;" ng-show="(home.ingredient.result.length !== 0)">
-									<table class="table table-condensed">
-										<tr>
-											<th class="transitionAll text-left" ng-repeat="(ki, vi) in home.ingredient._head track by $index" ng-if="(vi !== 'id')">{{vi}}</th>
-										</tr>
-										<tr ng-repeat="(kx, vx) in home.ingredient.result track by $index" ng-if="home.ingredient.result[kx] !== null" style="min-height:37px;">
-											<td class="transitionAll text-left" ng-repeat="(ki, vi) in home.ingredient._head track by $index" ng-if="(vi !== 'id')">
-												<span>{{home.ingredient.result[kx][vi]}}</span>
-											</td>
-										</tr>
-									</table>
+			<div class="col-md-12">
+				<div class="panel panel-default" style="float:none;overflow:auto">
+					<div class="col-md-12" ng-repeat="(key, value) in home.result track by $index">
+						<div class="col-md-12">
+							<h2>{{value.name}}</h2>
+							<div class="col-md-12" style="margin-left:10px;">
+								<h4>Description:</h4>
+								<p style="margin-left:10px;">{{value.description}}</p>
+								<h4>Instruction:</h4>
+								<p style="margin-left:10px;">{{value.instruction}}</p>
+								
+								
+								<div style="width:70%;overflow:hidden;">
+									<div class="table-responsive" style="float:none;" ng-show="(home.ingredient.result.length !== 0)">
+										<table class="table table-condensed">
+											<tr>
+												<th class="transitionAll text-left" ng-repeat="(ki, vi) in home.ingredient._head track by $index" ng-if="(vi !== 'id')">{{vi}}</th>
+											</tr>
+											<tr ng-repeat="(kx, vx) in home.ingredient.result track by $index" ng-if="home.ingredient.result[kx] !== null" style="min-height:37px;">
+												<td class="transitionAll text-left" ng-repeat="(ki, vi) in home.ingredient._head track by $index" ng-if="(vi !== 'id')">
+													<span>{{home.ingredient.result[kx][vi]}}</span>
+												</td>
+											</tr>
+										</table>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			
-			<div class="panel panel-default">
-				<div ng-click="home.comment.Get()" class="panel-heading">Comments<i style="margin-left:10px;" class="{{(home._wait)? 'loading' : '' }} fa fa-refresh"></i></div>
 				
-				<div class="col-md-12" style="float: none;">
-					<div ng-repeat="(key, value) in home.comment.result track by $index" ng-if="home.comment.result[key] !== null" style="min-height:37px;margin-bottom:10px;">
-						<div style="color:gray">{{value.email}} - {{value.date}}</div>
-						<div style="margin-left:10px;">
-							<p>{{value.comment}}</p>
+				<div class="panel panel-default" style="float:none;overflow:auto">
+					<div ng-click="home.comment.Get()" class="panel-heading">Comments<i style="margin-left:10px;" class="{{(home._wait)? 'loading' : '' }} fa fa-refresh"></i></div>
+					
+					<div class="col-md-12" style="float: none;">
+						<div ng-repeat="(key, value) in home.comment.result track by $index" ng-if="home.comment.result[key] !== null" style="min-height:37px;margin-bottom:10px;">
+							<div style="color:gray">{{value.email}} - {{value.date}}</div>
+							<div style="margin-left:10px;">
+								<p>{{value.comment}}</p>
+							</div>
+						</tr>
+					</div>
+					
+					<div class="panel panel-default" style="padding:5px;">
+						<input placeholder="user" style="width:100%;margin-bottom:10px;" type="text" ng-model="home.comment._insert.user">
+						<textarea placeholder="comment" style="width:100%;margin-bottom:10px;" class="jinxTextarea" ng-model="home.comment._insert.text"></textarea>
+						<div class="col-md-12 text-right">
+							<button class="btn btn-xs btn-success transitionAll" type="submit" ng-click="home.comment.Add(home.comment._insert)">Post</button>
 						</div>
-					</tr>
-				</div>
-				
-				<div class="panel panel-default" style="padding:5px;">
-					<input placeholder="user" style="width:100%;margin-bottom:10px;" type="text" ng-model="home.comment._insert.user">
-					<textarea placeholder="comment" style="width:100%;margin-bottom:10px;" class="jinxTextarea" ng-model="home.comment._insert.text"></textarea>
-					<div class="col-md-12 text-right">
-						<button class="btn btn-xs btn-success transitionAll" type="submit" ng-click="home.comment.Add(home.comment._insert)">Post</button>
 					</div>
 				</div>
 			</div>

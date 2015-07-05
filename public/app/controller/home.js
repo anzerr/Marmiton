@@ -100,7 +100,7 @@ Jinx.$add(function() {
 			$scope.home.Get();
 			$('.jinxFaidIn').css({'opacity': 1});
 			$timeout(function() {
-				$('#Dragdown').css({'margin-top': '5%', 'opacity': 1});
+				$('#Dragdown').css({'margin-top': '1%', 'opacity': 1});
 			}, 250);
 		}]);
 	});	

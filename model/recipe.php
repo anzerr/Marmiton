@@ -8,8 +8,8 @@ namespace Jinx\Model {
 			'column' => array(
 				'id' => 'int(11) NOT NULL AUTO_INCREMENT',
 				'name' => 'varchar(100) NOT NULL',
-				'instruction' => 'varchar(100) NOT NULL',
-				'description' => 'varchar(100) NOT NULL',
+				'instruction' => 'text NOT NULL',
+				'description' => 'varchar(250) NOT NULL',
 				'enable' => 'int NOT NULL',
 			),
 			'detail' => array('PRIMARY KEY (id)'),
