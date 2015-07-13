@@ -1,4 +1,3 @@
-
 var Jinx;
 (function(base) {
 	var load = function(b, c) {
@@ -14,7 +13,7 @@ var Jinx;
 		run();
 	}
 	/* --------------------- */
-	
+
 	var loadEvent = {
 		_waiting: {
 			files: false,
