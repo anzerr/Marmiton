@@ -63,10 +63,9 @@ Jinx.$add(function() {
 					}
 				}
 			}
-			
 			return {
 				restrict: 'E',
-				templateUrl: '/public/app/partials/menu.html',
+				templateUrl: 'public/app/partials/menu.html',
 				link: link,
 			};
 		}]);
