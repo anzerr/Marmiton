@@ -31,6 +31,8 @@ namespace Jinx\Controller {
 			/*
 				need a real create for all the child tables
 			*/
+            var_dump($param['value']);
+            var_dump($a);
 			echo json_encode($a->run());
 		}
 	}

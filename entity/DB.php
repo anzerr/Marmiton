@@ -77,7 +77,7 @@ namespace Jinx\Entity {
 					foreach ($_struct['column'] as $kin => $vin) {
 						foreach ($col as $key => $value) {
 							if ($key === $kin) {
-								$ncol .= (($count != 0) ? ', ' : '') . (($value == null) ? 'NULL' : '"' . $this->secure($value) . '"');
+								$ncol .= (($count != 0) ? ', ' : '') . (($value === null) ? 'NULL' : '"' . $this->secure($value) . '"');
 								$count += 1;
 								break;
 							}

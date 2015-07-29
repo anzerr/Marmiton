@@ -17,8 +17,11 @@ Jinx.$add(function() {
 				_insert: {
 					id: null,
 					enable: true,
+                    image: null,
+                    note: 0,
+                    numberVote: 0
 				},
-				_head: ['id', 'name', 'instruction', 'description', 'enable'],
+				_head: ['id', 'name', 'instruction', 'description', 'image', 'note', 'numberVote', 'enable'],
 				_edit: [],
 				_wait: false,
 				_id: $routeParams.id,
