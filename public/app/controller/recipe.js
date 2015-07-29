@@ -43,27 +43,6 @@ Jinx.$add(function() {
 					}
 				},
 				
-				_vote: false,
-				Vote: function(edit, star) {
-					var self = this;
-					if (!self._vote) {
-						self._vote = true;
-						edit.note += star;
-						edit.numberVote += 1;
-						$http({
-							method: 'post', url: '/', data: {
-								c: 'recipe', 
-								a: 'update', 
-								p: {'id': $routeParams.id, 'value': edit}
-							}
-						}).success(function(data, status, headers, config) {
-							self.Get($routeParams.id);
-						}).error(function(data, status, headers, config) {
-							console.log(data);
-						});
-					}
-				},
-				
 				Get: function(id, callback) {
 					var self = this;
 					self._wait = true;
@@ -188,8 +167,10 @@ Jinx.$add(function() {
 							console.log(data);
 						});	
 					},
+					
+					_currentVote: 0,			
 					Add: function(obj) {
-						var self = this;
+						var self = this, id = $routeParams.id;
 						$scope.home._wait = true;
 						$http({
 							method: 'post', url: '/', data: {
@@ -204,9 +185,24 @@ Jinx.$add(function() {
 								}}
 							}
 						}).success(function(data, status, headers, config) {
-							self._insert = {id: null};
-							self.Get($routeParams.id);
-							$scope.home._wait = false;
+							$http({
+								method: 'post', url: '/', data: {
+									c: 'recipe', 
+									a: 'update', 
+									p: {'id': $routeParams.id, 'value': {
+										note: $scope.home.result[0].note + self._currentVote,
+										numberVote: $scope.home.result[0].numberVote + 1
+									}}
+								}
+							}).success(function(data, status, headers, config) {
+								$scope.home.Get($routeParams.id);									
+								self._insert = {id: null};
+								self._currentVote = 0;
+								self.Get($routeParams.id);
+								$scope.home._wait = false;
+							}).error(function(data, status, headers, config) {
+								console.log(data);
+							});
 						}).error(function(data, status, headers, config) {
 							console.log(data);
 						});
