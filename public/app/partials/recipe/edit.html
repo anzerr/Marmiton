@@ -23,8 +23,10 @@
 							<td><textarea class="jinxTextarea" ng-model="home._insert.description"></textarea></td>
 						</tr>
                         <tr>
-							<td>Image (drag n drop):</td>
-							<td><input type="file" ng-model="home._insert.image"></textarea></td>
+							<td>Image:<img style="width:75px;" src="{{home._insert.image}}"/></td>
+							<td>
+								<jinxdropzone ng-model="home._insert.image">Drop Files Here</jinxdropzone>
+							</td>
 						</tr>
 					</table>
 					<div class="text-right" style="margin-bottom:10px;">
@@ -40,8 +42,13 @@
 						</tr>
 						<tr ng-repeat="(kx, vx) in home.result track by $index" ng-if="home.result[kx] !== null" style="min-height:37px;">
 							<td class="transitionAll text-left" ng-repeat="(ki, vi) in home._head track by $index">
-								<span ng-hide="(home._edit[kx] && ki !== 'id')">{{home.result[kx][vi]}}</span>
-								<input ng-show="(home._edit[kx] && ki !== 'id')" type="text" ng-model="home.result[kx][ki]" required style="min-width:64px;">
+								<div ng-if="(vi !== 'image')">
+									<span ng-hide="(home._edit[kx] && vi !== 'id')">{{home.result[kx][vi]}}</span>
+									<input ng-show="(home._edit[kx] && vi !== 'id')" type="text" ng-model="home.result[kx][ki]" required style="min-width:64px;">
+								</div>
+								<div ng-if="(vi === 'image')">
+									<img style="width:75px;height:75px;" src="{{home.result[kx][vi]}}"/>
+								</div>
 							</td>
 							<td class="text-right">
 								<button class="btn btn-xs btn-success transitionAll" type="submit" ng-click="home.Edit(kx)">

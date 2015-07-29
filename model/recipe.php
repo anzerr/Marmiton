@@ -10,7 +10,7 @@ namespace Jinx\Model {
 				'name' => 'varchar(100) NOT NULL',
 				'instruction' => 'text NOT NULL',
 				'description' => 'varchar(250) NOT NULL',
-                'image' => 'varchar(250) NULL',
+                'image' => 'LONGTEXT NULL',
                 'note' => 'int(11) NOT NULL DEFAULT 0',
                 'numberVote' => 'int(11) NOT NULL DEFAULT 0',
 				'enable' => 'int NOT NULL',

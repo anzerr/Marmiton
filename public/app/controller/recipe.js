@@ -42,6 +42,28 @@ Jinx.$add(function() {
 						}
 					}
 				},
+				
+				_vote: false,
+				Vote: function(edit, star) {
+					var self = this;
+					if (!self._vote) {
+						self._vote = true;
+						edit.note += star;
+						edit.numberVote += 1;
+						$http({
+							method: 'post', url: '/', data: {
+								c: 'recipe', 
+								a: 'update', 
+								p: {'id': $routeParams.id, 'value': edit}
+							}
+						}).success(function(data, status, headers, config) {
+							self.Get($routeParams.id);
+						}).error(function(data, status, headers, config) {
+							console.log(data);
+						});
+					}
+				},
+				
 				Get: function(id, callback) {
 					var self = this;
 					self._wait = true;

@@ -22,6 +22,12 @@
 							<td>Description:</td>
 							<td><textarea style="width:100%;" class="jinxTextarea" ng-model="home.result[0].description"></textarea></td>
 						</tr>
+						<tr>
+							<td>Image:<img style="width:75px;" src="{{home.result[0].image}}"/></td>
+							<td>
+								<jinxdropzone ng-model="home.result[0].image">Drop Files Here</jinxdropzone>
+							</td>
+						</tr>
 					</table>
 					<div class="text-right" style="margin-bottom:10px;">
 						<button class="btn btn-success" type="submit" ng-click="home.Save(home.result[0])">Save</button>

@@ -10,6 +10,7 @@
 					<div class="col-md-12" ng-repeat="(key, value) in home.result track by $index">
 						<div class="col-md-12">
 							<h2>{{value.name}}</h2>
+							<img style="width:100px;" src="{{value.image}}"/>
 							<div class="col-md-12" style="margin-left:10px;">
 								<h4>Description:</h4>
 								<p style="margin-left:10px;">{{value.description}}</p>
@@ -30,6 +31,23 @@
 											</tr>
 										</table>
 									</div>
+								</div>
+								
+								<div class="transitionAllB" style="opacity:{{(home._vote) ? 0 : 1}};margin-top:{{(home._vote) ? -20 : 0}}px;pointer-events:{{(home._vote) ? 'none' : 'all'}};">
+									<i class="fa fa-star" ng-click="home.Vote(value, 1)"></i>
+									<i class="fa fa-star" ng-click="home.Vote(value, 2)"></i>
+									<i class="fa fa-star" ng-click="home.Vote(value, 3)"></i>
+									<i class="fa fa-star" ng-click="home.Vote(value, 4)"></i>
+									<i class="fa fa-star" ng-click="home.Vote(value, 5)"></i>
+									<span>Vote</span>
+								</div>
+								
+								<div class="transitionAllB" style="color:rgb(255, 203, 0);opacity:{{(home._vote) ? 1 : 0}};pointer-events:{{(home._vote) ? 'all' : 'none'}};">
+									<i class="fa {{((value.note / value.numberVote) >= 1) ? 'fa-star' : 'fa-star-o'}}"></i>
+									<i class="fa {{((value.note / value.numberVote) >= 2) ? 'fa-star' : 'fa-star-o'}}"></i>
+									<i class="fa {{((value.note / value.numberVote) >= 3) ? 'fa-star' : 'fa-star-o'}}"></i>
+									<i class="fa {{((value.note / value.numberVote) >= 4) ? 'fa-star' : 'fa-star-o'}}"></i>
+									<i class="fa {{((value.note / value.numberVote) >= 5) ? 'fa-star' : 'fa-star-o'}}"></i>
 								</div>
 							</div>
 						</div>

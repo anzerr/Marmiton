@@ -11,6 +11,7 @@ Jinx.$add(function() {
 				_head: ['id', 'name', 'instruction', 'description', 'enable'],
 				_edit: [],
 				_wait: false,
+				_vote: false,
 				result: [],
 				Get: function() {
 					var self = this;

@@ -15,18 +15,18 @@ var Jinx;
 
 			app.Load([ // add all the files needs to load
 				'public/content/js/bootstrap.min.js', // loaded here because it needs jquery
+				'public/app/directive/dropzone.js',
+				'public/app/directive/menu.js',
+				
 				'public/app/controller/home.js',
 				'public/app/controller/recipe.js',
 				'public/app/controller/ingredient.js',
-				
-				'public/app/directive/dropzone.js',
-				'public/app/directive/menu.js',
 			], function() {				
 				// route config 
 				app.Config(['$routeProvider', function($routeProvider) {
 					console.log('route');
 					$routeProvider.
-					when('/home', {
+					when('/about', {
 						templateUrl: 'public/app/partials/home.html',
 						controller: 'HomeCtrl'
 					}).
@@ -34,6 +34,7 @@ var Jinx;
 						templateUrl: 'public/app/partials/recipe/home.html',
 						controller: 'RecipeCtrl'
 					}).
+					
 					when('/recipe/edit', {
 						templateUrl: 'public/app/partials/recipe/edit.html',
 						controller: 'RecipeCtrl'
@@ -51,7 +52,7 @@ var Jinx;
 						controller: 'IngredientCtrl'
 					}).
 					otherwise({
-						redirectTo: '/home'
+						redirectTo: '/recipe'
 					});
 				}]).run(['$cookies', '$rootScope', '$location', '$timeout', function($cookies, $rootScope, $location, $timeout) {
 					$rootScope.$on('$routeChangeStart', function(event, next, current) { // stuff on every route change

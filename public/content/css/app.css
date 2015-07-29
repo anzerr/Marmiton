@@ -166,3 +166,12 @@ span, td, tr, td {
 	-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 	transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
+
+.jinxDropzone {
+    border: 1px dashed #bbb;
+    border-radius: 5px;
+    padding: 25px;
+    text-align: center;
+    font: 15pt bold;
+    color: #bbb;
+}
